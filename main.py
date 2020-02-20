@@ -21,14 +21,11 @@ def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):
     return mae
 
 
-data_path = './obz.csv'
+data_path = './seapoint.csv'
 data = pd.read_csv(data_path)
 data = data.dropna(axis=0)
 
-print('PRICE COLUMNS')
-print(data.columns)
-
-features = ['bedrooms', 'area', 'price']
+features = ['bedrooms', 'area', 'bathrooms', 'parking', 'price']
 
 X = data[features]
 y = data.price
@@ -36,3 +33,7 @@ y = data.price
 train_X, val_X, train_y, val_y = train_test_split(X, y, random_state=1)
 
 my_mae = get_mae(50, train_X, val_X, train_y, val_y)
+
+# for max_leaf_nodes in [20, 50, 100, 500, 1000]:
+#     my_mae = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y)
+#     print('Max leaf nodes: %d \t\t Mean absolute error: %d' % (max_leaf_nodes, my_mae))
