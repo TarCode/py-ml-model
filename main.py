@@ -14,11 +14,16 @@ def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):
     model.fit(train_X, train_y)
     preds_val = model.predict(val_X)
     mae = mean_absolute_error(val_y, preds_val)
+    print("Validation data: ")
+    print(val_X)
+    print("Predicted values: ")
+    print(preds_val)
+    print("Mean Absolute Error: ", mae)
     return mae
 
 
-data_path = './property-listing.csv'
-data = pd.read_csv(data_path, dtype={"Close": float})
+data_path = './obz.csv'
+data = pd.read_csv(data_path)
 data = data.dropna(axis=0)
 
 print('PRICE COLUMNS')
@@ -31,24 +36,4 @@ y = data.price
 
 train_X, val_X, train_y, val_y = train_test_split(X, y, random_state=1)
 
-
-print('DATA DESCRIBE')
-print(X.describe())
-
-model = RandomForestRegressor(random_state=1)
-
-model.fit(X, y)
-
-print('MAKE PREDICTIONS FOR THE FOLLOWING 5 ROWS')
-print(data.head())
-
-predicted_prices = model.predict(X)
-print('THE PREDICTIONS ARE')
-print(predicted_prices)
-
-print('MEAN ABSOLUTE ERROR')
-print(mean_absolute_error(y, predicted_prices))
-
-for max_leaf_nodes in [500, 5000, 50000]:
-    my_mae = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y)
-    print('Max leaf nodes: %d \t\t Mean absolute error: %d' % (max_leaf_nodes, my_mae))
+my_mae = get_mae(50, train_X, val_X, train_y, val_y)
