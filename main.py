@@ -4,8 +4,7 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
 
 """
-    TODO: Process the CSV to clean the data and remove all strings 
-    (Add bedrooms field and remove 'R' and space from pricing)
+    TODO: Enrich the dataset by getting bathrooms, parking spaces and pets/no pets
 """
 
 
