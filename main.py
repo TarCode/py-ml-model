@@ -3,6 +3,11 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
 
+"""
+    TODO: Process the CSV to clean the data and remove all strings 
+    (Add bedrooms field and remove 'R' and space from pricing)
+"""
+
 
 def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):
     model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0)
@@ -13,39 +18,37 @@ def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):
     return mae
 
 
-crypto_price_path = './crypto_prices.csv'
-crypto_data = pd.read_csv(crypto_price_path, dtype={"Close": float})
-crypto_data = crypto_data.dropna(axis=0)
+data_path = './property-listings.csv'
+data = pd.read_csv(data_path, dtype={"Close": float})
+data = data.dropna(axis=0)
 
-print('CRYPTO PRICE COLUMNS')
-print(crypto_data.columns)
+print('PRICE COLUMNS')
+print(data.columns)
 
-features = ['Open', 'Close', 'Volume', 'High', 'Low']
+features = ['title', 'location', 'area', 'price']
 
-X = crypto_data[features]
-y = crypto_data.Close
+X = data[features]
+y = data.price
 
 train_X, val_X, train_y, val_y = train_test_split(X, y, random_state=1)
 
-print('CRYPTO DATA COLUMNS')
-print(X.columns)
 
-print('CRYPTO DATA DESCRIBE')
+print('DATA DESCRIBE')
 print(X.describe())
 
-crypto_model = DecisionTreeRegressor(random_state=1)
+model = DecisionTreeRegressor(random_state=1)
 
-crypto_model.fit(X, y)
+model.fit(X, y)
 
-print('MAKE PREDICTIONS FOR THE FOLLOWING 5 CRYPTOCURRENCIES')
-print(crypto_data.head())
+print('MAKE PREDICTIONS FOR THE FOLLOWING 5 ROWS')
+print(data.head())
 
-predicted_crypto_closing_prices = crypto_model.predict(X)
+predicted_prices = model.predict(X)
 print('THE PREDICTIONS ARE')
-print(predicted_crypto_closing_prices)
+print(predicted_prices)
 
 print('MEAN ABSOLUTE ERROR')
-print(mean_absolute_error(y, predicted_crypto_closing_prices))
+print(mean_absolute_error(y, predicted_prices))
 
 for max_leaf_nodes in [2, 3, 5, 8, 10, 2000]:
     my_mae = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y)
