@@ -21,11 +21,11 @@ def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):
     return mae
 
 
-data_path = './rondebosch.csv'
+data_path = './private-property-listings-cpt-cbd.csv'
 data = pd.read_csv(data_path)
 data = data.dropna(axis=0)
 
-features = ['bedrooms', 'area', 'bathrooms', 'parking', 'price']
+features = ['bedrooms', 'price']
 
 X = data[features]
 y = data.price
