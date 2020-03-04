@@ -868,8 +868,6 @@ bedrooms,type,location,area,bathrooms,parking,price
 2.0,house,Kreupelbosch,611.0,2,1,3900000.0
 1.0,apartment,Oranjezicht,81.0,1,1,2600000.0
 4.0,house,Claremont Upper,275.0,3,2,8595000.0
-4.0,house,Fresnaye,398.0,4,2,0
-4.0,house,Fresnaye,398.0,3,2,0
 2.0,house,Vanguard,183.0,1,2,1170000.0
 2.0,house,Bantry Bay,205.0,2,1,7400000.0
 3.0,house,Claremont,526.0,2.5,2,5750000.0
@@ -939,17 +937,14 @@ bedrooms,type,location,area,bathrooms,parking,price
 1.0,apartment,Oranjezicht,81.0,1,1,2600000.0
 2.0,apartment,Fresnaye,87.0,2,2,3195000.0
 4.0,house,Constantia,1.0,4,4,27000000.0
-4.0,house,Fresnaye,398.0,4,2,0
 2.0,apartment,Sea Point,93.0,1,2,3195000.0
 3.0,house,Rondebosch,496.0,2,6,2995000.0
-4.0,house,Fresnaye,398.0,3,2,0
 1.0,apartment,Cape Town City Centre,51.0,1,1,1900000.0
 3.0,house,Pinelands,763.0,2,4,3975000.0
 1.0,apartment,Rondebosch Village,46.0,1,1,1575000.0
 2.0,apartment,Cape Town City Centre,92.0,2,2,4800000.0
 3.0,house,Claremont,311.0,2,2,2650000.0
 3.0,house,Steenberg Golf Estate,735.0,2.5,3,13995000.0
-3.0,house,Zonnebloem,154.0,2,2,0
 3.0,apartment,Fresnaye,180.0,2,2,11200000.0
 1.0,house,Woodstock,102.0,1,1,2630000.0
 2.0,apartment,Sea Point,135.0,2,1,5895000.0
@@ -2579,7 +2574,6 @@ bedrooms,type,location,area,bathrooms,parking,price
 5.0,house,Constantia,1.0,3,2,7995000.0
 1.0,apartment,Vredehoek,122.0,1,1,3120000.0
 4.0,house,Bergvliet,784.0,2,2,4375000.0
-3.0,house,Crawford,546.0,3,2,0
 3.0,house,Woodstock,538.0,1,1,5300000.0
 5.0,house,Kenwyn,520.0,5,2,3200000.0
 8.0,house,Woodstock,269.0,3,2,3750000.0
@@ -3450,7 +3444,6 @@ bedrooms,type,location,area,bathrooms,parking,price
 1.0,apartment,Cape Town City Centre,71.0,1,1,2450000.0
 2.0,apartment,Mouille Point,96.0,1,1,3600000.0
 1.0,apartment,Claremont,68.0,1,1,1999999.0
-8.0,house,Bishopscourt,7.0,8,6,0
 3.0,apartment,Kenilworth,104.0,1.5,2,1750000.0
 1.0,apartment,Constantia,2.0,1,8,9600000.0
 1.0,apartment,Sea Point,98.0,1,1,5250000.0
@@ -3477,7 +3470,6 @@ bedrooms,type,location,area,bathrooms,parking,price
 5.0,house,Maitland,189.0,2,1,2500000.0
 2.0,apartment,Cape Town City Centre,88.0,2,2,3295000.0
 4.0,house,Camps Bay,996.0,2,1,14950000.0
-8.0,house,Bishopscourt,7.0,8,6,0
 3.0,apartment,Kenilworth,104.0,1.5,2,1750000.0
 3.0,house,Stonehurst Mountain Estate,300.0,3.5,2,6500000.0
 1.0,apartment,Sea Point,98.0,1,1,5250000.0
@@ -4361,7 +4353,6 @@ bedrooms,type,location,area,bathrooms,parking,price
 6.0,house,Salt River,533.0,5,5,3849000.0
 1.0,apartment,Observatory,39.0,1,1,1450000.0
 6.0,house,Bishopscourt,5.0,6,4,15500000.0
-5.0,house,Higgovale,1.0,4,3,0
 5.0,house,Bishopscourt,2.0,4,4,13900000.0
 7.0,house,Bishopscourt,3.0,7,10,37000000.0
 0,apartment,Maitland,24.0,1,2,410000.0

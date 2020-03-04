@@ -1,68 +1,66 @@
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.model_selection import cross_val_score
 from location_order import LOCATIONS
 
-"""
-    TODO: Enrich the dataset by getting bathrooms, parking spaces and pets/no pets
-"""
+def preprocess_data(data_path):
+    data = pd.read_csv(data_path)
+    data = data.dropna(axis=0)
+
+    types = ['apartment', 'house']
+
+    for index, type in enumerate(types):
+        data.replace(type, index, inplace=True)
+
+    for index, location in enumerate(LOCATIONS):
+        data.replace(location, index, inplace=True)
+
+    features = ['bedrooms', 'type', 'location', 'area', 'bathrooms', 'parking', 'price']
+
+    X = data[features]
+    y = data.price
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
+
+    return X_train, X_test, y_train, y_test
 
 
-def get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y):
-    model = RandomForestRegressor(max_leaf_nodes=max_leaf_nodes, random_state=1, n_estimators=100)
-    model.fit(train_X, train_y)
-    preds_val = model.predict(val_X)
-    mae = mean_absolute_error(val_y, preds_val)
-    # print("Validation data: ")
-    # print(val_X)
-    # print("Predicted values: ")
-    # print(preds_val)
-    # print("Mean Absolute Error: ", mae)
-    return mae
+def get_scores_for_n_estimators(n_estimators, X_train, y_train):
+    my_pipeline = Pipeline(steps=[
+        ('preprocessor', SimpleImputer()),
+        ('model', RandomForestRegressor(n_estimators=n_estimators, random_state=0))
+    ])
+
+    scores = -1 * cross_val_score(my_pipeline, X_train, y_train, cv=3, scoring='neg_mean_absolute_error')
+    return scores.mean()
 
 
-data_path = 'data/cape-town-property-listings.csv'
-data = pd.read_csv(data_path)
-data = data.dropna(axis=0)
+def get_scores_for_max_leaf_nodes(max_leaf_nodes, X_train, y_train):
+    my_pipeline = Pipeline(steps=[
+        ('preprocessor', SimpleImputer()),
+        ('model', RandomForestRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0))
+    ])
 
-#
-# locations = [
-#     'Seawinds',
-#     'Maitland',
-#     'Lakeside',
-#     'Plumstead',
-#     'Tokai',
-#     'Pinelands',
-#     'Rondebosch',
-#     'Claremont',
-#     'Claremont Upper',
-#     'Oranjezicht',
-#     'Sea Point',
-#     'Clifton',
-#     'Camps Bay'
-# ]
+    scores = -1 * cross_val_score(my_pipeline, X_train, y_train, cv=3, scoring='neg_mean_absolute_error')
+    return scores.mean()
 
-print(data['type'].unique())
 
-types = ['apartment', 'house']
+X_train, X_test, y_train, y_test = preprocess_data('data/cape-town-property-listings.csv')
 
-for index, type in enumerate(types):
-    data.replace(type, index, inplace=True)
+max_leaf_nodes_results = {}
+for i in [34, 55, 89, 144, 233, 377, 610, 947]:
+    max_leaf_nodes_results[i] = get_scores_for_max_leaf_nodes(i, X_train, y_train)
 
-for index, location in enumerate(LOCATIONS):
-    data.replace(location, index, inplace=True)
+n_estimators_results = {}
 
-features = ['bedrooms', 'location', 'area', 'bathrooms', 'parking', 'price']
+for i in range(400, 950, 50):
+    n_estimators_results[i] = get_scores_for_n_estimators(i, X_train, y_train)
 
-X = data[features]
-y = data.price
+print('MAX LEAF NODES RESULTS')
+print(max_leaf_nodes_results)
 
-train_X, val_X, train_y, val_y = train_test_split(X, y, random_state=1)
-
-# my_mae = get_mae(50, train_X, val_X, train_y, val_y)
-
-for max_leaf_nodes in [2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 947]:
-    my_mae = get_mae(max_leaf_nodes, train_X, val_X, train_y, val_y)
-    print('Max leaf nodes: %d \t\t Mean absolute error: %d' % (max_leaf_nodes, my_mae))
+print('N ESTIMATORS RESULTS')
+print(n_estimators_results)
