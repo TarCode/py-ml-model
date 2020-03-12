@@ -1,4 +1,6 @@
-from lgbm import read_data, preprocess_data, train_model, evaluate_model
+from preprocess import read_data, preprocess_data
+import lgbm
+import cboost
 
 data = read_data('./data/cape-town-property-listings.csv')
 
@@ -7,8 +9,14 @@ y_label = 'price'
 
 x_train, x_test, y_train, y_test = preprocess_data(data, features, y_label)
 
-bst = train_model(x_train, y_train)
+# LightGBM model and score
+print("LIGHT GBM")
+bst = lgbm.train_model(x_train, y_train)
+score = lgbm.evaluate_model(bst, x_test, y_test)
+print("SCORE", score)
 
-score = evaluate_model(bst, x_test, y_test)
-
+print("**************")
+print("CATBOOST")
+model = cboost.train_model(x_train, y_train)
+score = cboost.evaluate_model(model, x_test, y_test)
 print("SCORE", score)
