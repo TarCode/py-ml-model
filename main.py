@@ -7,8 +7,6 @@ y_label = 'price'
 
 x_train, x_test, y_train, y_test = preprocess_data(data, features, y_label)
 
-print(x_train, x_test, y_train, y_test)
-
 bst = train_model(x_train, y_train)
 
 score = evaluate_model(bst, x_test, y_test)
